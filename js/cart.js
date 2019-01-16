@@ -19,6 +19,19 @@ var vm = new Vue({
 		})
 			
 	},
+	computed: {
+		// 计算总金额
+		totalMoneyComp:function(){
+			// var _this = this;
+			var totalMoney = 0;
+			this.productList.forEach(function(item,index){
+				if(item.checked){
+					totalMoney += item.productPrice*item.productQuantity;
+				}
+			});
+			return totalMoney;
+		},
+	},
 	methods:{
 		// 渲染页面
 		cartView:function(){
@@ -38,7 +51,7 @@ var vm = new Vue({
 					product.productQuantity=1;//当数量少于1个时保持1个不变
 				}
 			}
-			this.calcTotalPrice();
+			// this.calcTotalPrice();
 		},
 		// 判断是否先中了按钮
 		selectedProduct:function(item){
@@ -48,7 +61,7 @@ var vm = new Vue({
 			}else{
 				item.checked = !item.checked;
 			}
-			this.calcTotalPrice();
+			// this.calcTotalPrice();
 		},
 		// 全选与取消全选，点击全选时flag为true,取消时为false
 		checkAll:function(flag){
@@ -61,18 +74,7 @@ var vm = new Vue({
 					item.checked = _this.checkAllFlag;
 				}
 			});
-			this.calcTotalPrice();
-		},
-		// 计算总金额
-		calcTotalPrice:function(){
-			var _this = this;
-			this.totalMoney = 0;
-			this.productList.forEach(function(item,index){
-				if(item.checked){
-					_this.totalMoney += item.productPrice*item.productQuantity;
-				}
-			});
-
+			// this.calcTotalPrice();
 		},
 		// 确定删除
 		delConfirm:function(item){
